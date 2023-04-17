@@ -16,6 +16,7 @@ export const createServer = (opts: ServerOptions) => {
     const prefix = opts.prefix ?? '/trpc';
     const server = fastify({ logger: dev });
 
+    void server.register(ws)
     void server.register(fastifyTRPCPlugin, {
         prefix,
         useWSS: true,

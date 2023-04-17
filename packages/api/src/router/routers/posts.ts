@@ -4,7 +4,7 @@ import { publicProcedure, router } from '../trpc'
 
 export interface Post {
     id: number;
-    title: string;
+    title?: string;
 }
 
 interface Db {
@@ -18,7 +18,7 @@ const db: Db = {
 export const postsRouter = router({
     create: publicProcedure
         .input(z.object({ title: z.string() }))
-        .mutation(({ input, ctx}) => {
+        .mutation(({ input, ctx }) => {
             if (ctx.user.name !== 'nyan') {
                 throw new TRPCError({ code: 'UNAUTHORIZED' })
             }
